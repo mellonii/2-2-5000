@@ -10,7 +10,7 @@ body {
 }
 
 .page {
-    max-width: 500px;
+    max-width: 550px;
     width: 100%;
     padding: 20px;
     background-color: #ffffff;
@@ -44,6 +44,12 @@ button:hover {
     font-weight: bold;
     margin: 10px 0;
 }
+
+.expression-large {
+    font-size: 36px; /* Adjust the font size according to your preference */
+    font-weight: bold; /* You can make the text bolder */
+}
+
 
 .larger-input {
     font-size: 18px;
@@ -86,15 +92,3 @@ button:hover {
     text-decoration: none;
     cursor: pointer;
   }
-  
-  .expression-square {
-    display: inline-block;
-    padding: 5px 10px;
-    margin: 0 5px;
-    background-color: #f0f0f0;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-weight: bold;
-    font-size: 24px;
-  }
-  

@@ -7,6 +7,7 @@ document.getElementById('start-game-btn').addEventListener('click', startGame);
 
 
 let maxNumber = 10;
+let dep = 1
 
 
 function openRules() {
@@ -14,18 +15,17 @@ function openRules() {
   }
   
   function startGame() {
+    document.getElementById('result-message').textContent = '';
     document.getElementById('rules-modal').style.display = 'none';
-    document.getElementById('welcome').style.display = 'none'; // Add this line
+    document.getElementById('welcome').style.display = 'none';
     document.getElementById('game').style.display = 'block';
     generateExpression();
 }
 
 function submitAnswer() {
     let userAnswer = document.getElementById('answer').value;
-    let num1 = parseInt(document.getElementById('num1').textContent);
-    let num2 = parseInt(document.getElementById('num2').textContent);
-    let operator = document.getElementById('operator').textContent;
-    let correctAnswer = eval(`${num1} ${operator} ${num2}`);
+    let operator = document.getElementById('expression').textContent;
+    let correctAnswer = eval(operator);
 
 
     let resultMessage = document.getElementById('result-message');
@@ -52,33 +52,66 @@ function openSettings() {
     document.getElementById('game').style.display = 'none';
     document.getElementById('settings').style.display = 'block';
     document.getElementById('max-number').value = maxNumber;
+    document.getElementById('depth').value = dep;
 }
 
 function saveSettings() {
     maxNumber = parseInt(document.getElementById('max-number').value);
+    dep = parseInt(document.getElementById('depth').value);
+    let settingsError = document.getElementById('settings-error');
+    if (isNaN(maxNumber) || isNaN(dep) || dep > 4 || maxNumber > 999 || dep<1 || maxNumber<=0) {
+        settingsError.textContent = "За гранью твоих возмоностей!";
+        settingsError.style.display = "block";
+        return;
+    } else {
+        settingsError.textContent = "";
+        settingsError.style.display = "none";
+    }
+
     document.getElementById('settings').style.display = 'none';
+    startGame();
     document.getElementById('game').style.display = 'block';
 }
 
-// Update the generateExpression function
-function generateExpression() {
-    let num1 = Math.floor(Math.random() * maxNumber) + 1;
-    let num2 = Math.floor(Math.random() * maxNumber) + 1;
-    let operators = ['+', '-', '*', '/'];
-    let operator = operators[Math.floor(Math.random() * operators.length)];
-
-    // Ensure division results in an integer
-    if (operator === '/') {
-        while (num1 % num2 !== 0) {
-            num1 = Math.floor(Math.random() * maxNumber) + 1;
-            num2 = Math.floor(Math.random() * maxNumber) + 1;
-        }
+function generateValidExpression(depth) {
+    let num1, num2;
+  
+    if (depth == 1) {
+      num1 = Math.floor(Math.random() * maxNumber) + 1;
+      num2 = Math.floor(Math.random() * maxNumber) + 1;
+    } else {
+      num1 = generateValidExpression(depth - 1);
+      num2 = generateValidExpression(depth - 1);
     }
+  
+    let operators = ["+", "-", "*"];
+    let operator = operators[Math.floor(Math.random() * operators.length)];
+  
+    return [num1, operator, num2];
+  }
 
-    document.getElementById('num1').textContent = num1;
-    document.getElementById('operator').textContent = operator;
-    document.getElementById('num2').textContent = num2;
-}
+  function parseExpression(components, depth) {
+    if (depth === 1) {
+      return "("+components.join(" ")+")";
+    } else {
+      let num1Sub = parseExpression(components[0], depth - 1);
+      let num2Sub = parseExpression(components[2], depth - 1);
+      let oper = components[1];
+      return `(${num1Sub} ${oper} ${num2Sub})`;
+    }
+  }
+
+  function generateExpression() {
+    let expression = generateValidExpression(dep);
+    expression = parseExpression(expression,dep);
+    //console.log(expression);
+  
+    document.getElementById("expression").textContent = expression.substring(1, expression.length - 1);
+    //document.getElementById("num1").textContent = num1;
+    //document.getElementById("operator").textContent = operator;
+    //document.getElementById("num2").textContent = num2;
+  }
+  
 
 // Get the modal and close button
 let rulesModal = document.getElementById("rules-modal");

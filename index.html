@@ -26,10 +26,9 @@
     <div id="game" class="page" style="display:none">
         <h2>Calculate:</h2>
         <div id="expression-block">
-          <span id="num1" class="expression-square"></span>
-          <span id="operator" class="expression-square"></span>
-          <span id="num2" class="expression-square"></span>
-        </div>
+            <span id="expression" class="expression-large"></span>
+          </div>
+          
         <input type="number" id="answer" placeholder="Enter your answer" class="larger-input">
         <div class="game-buttons">
           <button id="submit-btn">Submit</button>
@@ -42,6 +41,11 @@
         <h2>Settings</h2>
         <label for="max-number">Max number:</label>
         <input type="number" id="max-number" value="10">
+        <br>
+        <label for="depth">Complex(1-4):</label>
+        <input type="number" id="depth" value="1">
+        <br>
+        <p id="settings-error" style="color: red; display: none;"></p>
         <button id="save-settings-btn">Save</button>
     </div>
     <script src="scripts.js"></script>
