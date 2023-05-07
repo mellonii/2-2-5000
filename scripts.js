@@ -22,7 +22,12 @@ function openRules() {
 
 function submitAnswer() {
     let userAnswer = document.getElementById('answer').value;
-    let correctAnswer = eval(document.getElementById('expression').textContent);
+    let num1 = parseInt(document.getElementById('num1').textContent);
+    let num2 = parseInt(document.getElementById('num2').textContent);
+    let operator = document.getElementById('operator').textContent;
+    let correctAnswer = eval(`${num1} ${operator} ${num2}`);
+
+
     let resultMessage = document.getElementById('result-message');
 
     if (userAnswer == correctAnswer) {
