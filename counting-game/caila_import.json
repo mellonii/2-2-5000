@@ -1,0 +1,18 @@
+{
+    "project" : {
+      "id" : "teech_code-971214-mOp",
+      "name" : "teech_code-971214-mOp",
+      "folder" : "/jaicp"
+    },
+    "settings" : {
+      "language" : "ru",
+      "spellingCorrection" : false,
+      "classificationAlgorithm" : "sts",
+      "timezone" : "UTC",
+      "businessShared" : false,
+      "business" : false
+    },
+    "intents" : [ ],
+    "entities" : [ ],
+    "enabledSystemEntities" : [ "duckling.number", "duckling.time", "duckling.duration", "duckling.phone-number", "duckling.email", "duckling.url" ]
+  }
